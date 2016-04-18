@@ -41,8 +41,8 @@ public class PHConstruct
 
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
 
-        keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
-        keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
+        keepHunger = config.get("Difficulty Changes", "Keep hunger on death", false).getBoolean(false);
+        keepLevels = config.get("Difficulty Changes", "Keep levels on death", false).getBoolean(false);
         beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
         deathPenality = config.get("Difficulty Changes", "Tools lose 10% durability on death", true).getBoolean(true);
         balancedFluxModifier = config.get("Difficulty Changes", "Balanced Flux Modifier", true).getBoolean(true);
@@ -66,8 +66,8 @@ public class PHConstruct
         denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
         craftEndstone = config.get("Difficulty Changes", "Allow creation of endstone", true).getBoolean(true);
         alternativeBoltRecipe = config.get("Difficulty Changes", "Add alternative recipe for bolt parts: arrowhead + toolrod in a crafting grid", false).getBoolean(false);
-        indestructible = config.get("Difficulty Changes", "Dropped tools are indestructible", true).getBoolean(true);
-        globalDespawn = config.get("Difficulty Changes", "Global item despawn time", 6000).getInt(6000);
+        indestructible = config.get("Difficulty Changes", "Dropped tools are indestructible", false).getBoolean(false);
+        globalDespawn = config.get("Difficulty Changes", "Global item despawn time", 18000).getInt(18000);
 
         naturalSlimeSpawn = config.get("Mobs", "Blue Slime spawn chance", 1, "Set to 0 to disable").getInt(1);
 
