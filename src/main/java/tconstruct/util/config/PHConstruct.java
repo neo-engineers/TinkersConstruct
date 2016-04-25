@@ -123,14 +123,14 @@ public class PHConstruct
         generateTinSurface = config.get("Worldgen Disabler", "Generate Surface Tin", true).getBoolean(true);
         generateAluminumSurface = config.get("Worldgen Disabler", "Generate Surface Aluminum", true).getBoolean(true);
 
-        generateIronBush = config.get("Worldgen Disabler", "Generate Iron Bushes", true).getBoolean(true);
-        generateGoldBush = config.get("Worldgen Disabler", "Generate Gold Bushes", true).getBoolean(true);
-        generateCopperBush = config.get("Worldgen Disabler", "Generate Copper Bushes", true).getBoolean(true);
-        generateTinBush = config.get("Worldgen Disabler", "Generate Tin Bushes", true).getBoolean(true);
-        generateAluminumBush = config.get("Worldgen Disabler", "Generate Aluminum Bushes", true).getBoolean(true);
-        generateEssenceBush = config.get("Worldgen Disabler", "Generate Essence Bushes", true).getBoolean(true);
+        generateIronBush = config.get("Worldgen Disabler", "Generate Iron Bushes", false).getBoolean(false);
+        generateGoldBush = config.get("Worldgen Disabler", "Generate Gold Bushes", false).getBoolean(false);
+        generateCopperBush = config.get("Worldgen Disabler", "Generate Copper Bushes", false).getBoolean(false);
+        generateTinBush = config.get("Worldgen Disabler", "Generate Tin Bushes", false).getBoolean(false);
+        generateAluminumBush = config.get("Worldgen Disabler", "Generate Aluminum Bushes", false).getBoolean(false);
+        generateEssenceBush = config.get("Worldgen Disabler", "Generate Essence Bushes", false).getBoolean(false);
         addToVillages = config.get("Worldgen Disabler", "Add Village Generation", true).getBoolean(true);
-        allowVillagerTrading = config.get("Worldgen Disabler", "Enable the Tinkers Villager to trade for oreberries", true).getBoolean(true);
+        allowVillagerTrading = config.get("Worldgen Disabler", "Enable the Tinkers Villager to trade for oreberries", false).getBoolean(false);
 
         copperuDensity = config.get("Worldgen", "Copper Underground Density", 2, "Density: Chances per chunk").getInt(2);
         tinuDensity = config.get("Worldgen", "Tin Underground Density", 2).getInt(2);
