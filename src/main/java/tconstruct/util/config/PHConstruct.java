@@ -67,7 +67,6 @@ public class PHConstruct
         craftEndstone = config.get("Difficulty Changes", "Allow creation of endstone", true).getBoolean(true);
         alternativeBoltRecipe = config.get("Difficulty Changes", "Add alternative recipe for bolt parts: arrowhead + toolrod in a crafting grid", false).getBoolean(false);
         indestructible = config.get("Difficulty Changes", "Dropped tools are indestructible", false).getBoolean(false);
-        globalDespawn = config.get("Difficulty Changes", "Global item despawn time", 18000).getInt(18000);
         dropCanisters = config.get("Difficulty Changes", "Drop heart canisters on death", true).getBoolean(true);
         daggerThrowMultiplier = config.get("Difficulty Changes", "Thrown dagger output multiplier", 3).getDouble(3);
 
@@ -351,7 +350,6 @@ public class PHConstruct
     public static boolean denyMattock;
     public static boolean alternativeBoltRecipe;
     public static boolean indestructible;
-    public static int globalDespawn;
     public static boolean dropCanisters;
     public static double daggerThrowMultiplier;
 
