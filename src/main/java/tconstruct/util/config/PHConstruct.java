@@ -23,23 +23,6 @@ public class PHConstruct
          * Second: Create the actual config file
          */
         File mainFile = new File(location + "/TinkersConstruct.cfg");
-        File legacyFile16 = new File(location + "/TinkersWorkshop.txt");
-        File legacyFile17 = new File(location + "/TConstruct.cfg");
-        try
-        {
-            if (!mainFile.exists())
-            {
-                if (legacyFile16.exists())
-                    legacyFile16.renameTo(mainFile);
-                if (legacyFile17.exists())
-                    legacyFile17.renameTo(mainFile);
-            }
-        }
-        catch (Exception e)
-        {
-            TConstruct.logger.warn("Could not update legacy configuration file for TConstruct. Reason:");
-            TConstruct.logger.warn(e.getLocalizedMessage());
-        }
 
         Configuration config = new Configuration(mainFile);
         //config.load(); /* Load happens in the constructor */
@@ -48,7 +31,7 @@ public class PHConstruct
 
         keepHunger = config.get("Difficulty Changes", "Keep hunger on death", false).getBoolean(false);
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", false).getBoolean(false);
-        beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
+        beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", false).getBoolean(false);
         deathPenality = config.get("Difficulty Changes", "Tools lose 10% durability on death", true).getBoolean(true);
         balancedFluxModifier = config.get("Difficulty Changes", "Balanced Flux Modifier", true).getBoolean(true);
 
@@ -64,12 +47,12 @@ public class PHConstruct
 
         craftMetalTools = config.get("Difficulty Changes", "Craft metals with Wood Patterns", false).getBoolean(false);
         vanillaMetalBlocks = config.get("Difficulty Changes", "Craft vanilla metal blocks", true).getBoolean(true);
-        lavaFortuneInteraction = config.get("Difficulty Changes", "Enable Auto-Smelt and Fortune interaction", true).getBoolean(true);
+        lavaFortuneInteraction = config.get("Difficulty Changes", "Enable Auto-Smelt and Fortune interaction", false).getBoolean(false);
         removeGoldCastRecipes = config.get("Difficulty Changes", "Remove Gold Cast Recipes", true).getBoolean(true);
         removeVanillaToolRecipes = config.get("Difficulty Changes", "Remove Vanilla Tool Recipes", false).getBoolean(false);
-        labotimizeVanillaTools = config.get("Difficulty Changes", "Remove Vanilla Tool Effectiveness", false).getBoolean(false);
+        labotimizeVanillaTools = config.get("Difficulty Changes", "Remove Vanilla Tool Effectiveness", true).getBoolean(true);
         miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
-        denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
+        denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", true).getBoolean(true);
         craftEndstone = config.get("Difficulty Changes", "Allow creation of endstone", true).getBoolean(true);
         alternativeBoltRecipe = config.get("Difficulty Changes", "Add alternative recipe for bolt parts: arrowhead + toolrod in a crafting grid", false).getBoolean(false);
         indestructible = config.get("Difficulty Changes", "Dropped tools are indestructible", false).getBoolean(false);
@@ -103,7 +86,7 @@ public class PHConstruct
         }
         catch (Exception ignored) {}
 
-        generateCopper = config.get("Worldgen Disabler", "Generate Copper", ic2).getBoolean(ic2);
+        generateCopper = config.get("Worldgen Disabler", "Generate Copper", false).getBoolean(false);
         generateTin = config.get("Worldgen Disabler", "Generate Tin", ic2).getBoolean(ic2);
         generateAluminum = config.get("Worldgen Disabler", "Generate Aluminum", xycraft).getBoolean(xycraft);
         if(config.hasKey("worldgen disabler", "Generate Cobalt and Ardite")) {
@@ -123,14 +106,14 @@ public class PHConstruct
         generateTinSurface = config.get("Worldgen Disabler", "Generate Surface Tin", true).getBoolean(true);
         generateAluminumSurface = config.get("Worldgen Disabler", "Generate Surface Aluminum", true).getBoolean(true);
 
-        generateIronBush = config.get("Worldgen Disabler", "Generate Iron Bushes", false).getBoolean(false);
-        generateGoldBush = config.get("Worldgen Disabler", "Generate Gold Bushes", false).getBoolean(false);
-        generateCopperBush = config.get("Worldgen Disabler", "Generate Copper Bushes", false).getBoolean(false);
-        generateTinBush = config.get("Worldgen Disabler", "Generate Tin Bushes", false).getBoolean(false);
-        generateAluminumBush = config.get("Worldgen Disabler", "Generate Aluminum Bushes", false).getBoolean(false);
-        generateEssenceBush = config.get("Worldgen Disabler", "Generate Essence Bushes", false).getBoolean(false);
+        generateIronBush = config.get("Worldgen Disabler", "Generate Iron Bushes", true).getBoolean(true);
+        generateGoldBush = config.get("Worldgen Disabler", "Generate Gold Bushes", true).getBoolean(true);
+        generateCopperBush = config.get("Worldgen Disabler", "Generate Copper Bushes", true).getBoolean(true);
+        generateTinBush = config.get("Worldgen Disabler", "Generate Tin Bushes", true).getBoolean(true);
+        generateAluminumBush = config.get("Worldgen Disabler", "Generate Aluminum Bushes", true).getBoolean(true);
+        generateEssenceBush = config.get("Worldgen Disabler", "Generate Essence Bushes", true).getBoolean(true);
         addToVillages = config.get("Worldgen Disabler", "Add Village Generation", true).getBoolean(true);
-        allowVillagerTrading = config.get("Worldgen Disabler", "Enable the Tinkers Villager to trade for oreberries", false).getBoolean(false);
+        allowVillagerTrading = config.get("Worldgen Disabler", "Enable the Tinkers Villager to trade for oreberries", true).getBoolean(true);
 
         copperuDensity = config.get("Worldgen", "Copper Underground Density", 2, "Density: Chances per chunk").getInt(2);
         tinuDensity = config.get("Worldgen", "Tin Underground Density", 2).getInt(2);
@@ -185,8 +168,8 @@ public class PHConstruct
         tconComesFirst = config.get("general", "Always cast TConstruct ingots", true, "You will always get a TConstruct item from casting an ingot or block.").getBoolean();
 
         enableHealthRegen = config.get("Ultra Hardcore Changes", "Passive Health Regen", true).getBoolean(true);
-        goldAppleRecipe = config.get("Ultra Hardcore Changes", "Change Crafting Recipes", false, "Makes recipes for gold apples, carrots, and melon potions more expensive").getBoolean(false);
-        dropPlayerHeads = config.get("Ultra Hardcore Changes", "Players drop heads on death", false).getBoolean(false);
+        goldAppleRecipe = config.get("Ultra Hardcore Changes", "Change Crafting Recipes", true, "Makes recipes for gold apples, carrots, and melon potions more expensive").getBoolean(true);
+        dropPlayerHeads = config.get("Ultra Hardcore Changes", "Players drop heads on death", true).getBoolean(true);
         uhcGhastDrops = config.get("Ultra Hardcore Changes", "Change Ghast drops to Gold Ingots", false).getBoolean(false);
         worldBorder = config.get("Ultra Hardcore Changes", "Add World Border", false).getBoolean(false);
         worldBorderSize = config.get("Ultra Hardcore Changes", "World Border Radius", 1000).getInt(1000);
