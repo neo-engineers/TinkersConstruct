@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import tconstruct.library.accessory.IHealthAccessory;
+import tconstruct.util.config.PHConstruct;
 
 public class ArmorExtended implements IInventory
 {
@@ -278,6 +279,8 @@ public class ArmorExtended implements IInventory
     
     public void dropItems ()
     {
+        final int dropEndSlot = PHConstruct.dropCanisters ? 7 : 4;
+
         EntityPlayer player = parent.get();
         if (player != null)
         {

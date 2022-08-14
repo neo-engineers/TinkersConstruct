@@ -23,32 +23,15 @@ public class PHConstruct
          * Second: Create the actual config file
          */
         File mainFile = new File(location + "/TinkersConstruct.cfg");
-        File legacyFile16 = new File(location + "/TinkersWorkshop.txt");
-        File legacyFile17 = new File(location + "/TConstruct.cfg");
-        try
-        {
-            if (!mainFile.exists())
-            {
-                if (legacyFile16.exists())
-                    legacyFile16.renameTo(mainFile);
-                if (legacyFile17.exists())
-                    legacyFile17.renameTo(mainFile);
-            }
-        }
-        catch (Exception e)
-        {
-            TConstruct.logger.warn("Could not update legacy configuration file for TConstruct. Reason:");
-            TConstruct.logger.warn(e.getLocalizedMessage());
-        }
 
         Configuration config = new Configuration(mainFile);
         //config.load(); /* Load happens in the constructor */
 
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
 
-        keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
-        keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
-        beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
+        keepHunger = config.get("Difficulty Changes", "Keep hunger on death", false).getBoolean(false);
+        keepLevels = config.get("Difficulty Changes", "Keep levels on death", false).getBoolean(false);
+        beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", false).getBoolean(false);
         deathPenality = config.get("Difficulty Changes", "Tools lose 10% durability on death", true).getBoolean(true);
         balancedFluxModifier = config.get("Difficulty Changes", "Balanced Flux Modifier", true).getBoolean(true);
 
@@ -64,14 +47,17 @@ public class PHConstruct
 
         craftMetalTools = config.get("Difficulty Changes", "Craft metals with Wood Patterns", false).getBoolean(false);
         vanillaMetalBlocks = config.get("Difficulty Changes", "Craft vanilla metal blocks", true).getBoolean(true);
-        lavaFortuneInteraction = config.get("Difficulty Changes", "Enable Auto-Smelt and Fortune interaction", true).getBoolean(true);
+        lavaFortuneInteraction = config.get("Difficulty Changes", "Enable Auto-Smelt and Fortune interaction", false).getBoolean(false);
         removeGoldCastRecipes = config.get("Difficulty Changes", "Remove Gold Cast Recipes", true).getBoolean(true);
         removeVanillaToolRecipes = config.get("Difficulty Changes", "Remove Vanilla Tool Recipes", false).getBoolean(false);
-        labotimizeVanillaTools = config.get("Difficulty Changes", "Remove Vanilla Tool Effectiveness", false).getBoolean(false);
+        labotimizeVanillaTools = config.get("Difficulty Changes", "Remove Vanilla Tool Effectiveness", true).getBoolean(true);
         miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
-        denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
+        denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", true).getBoolean(true);
         craftEndstone = config.get("Difficulty Changes", "Allow creation of endstone", true).getBoolean(true);
         alternativeBoltRecipe = config.get("Difficulty Changes", "Add alternative recipe for bolt parts: arrowhead + toolrod in a crafting grid", false).getBoolean(false);
+        indestructible = config.get("Difficulty Changes", "Dropped tools are indestructible", false).getBoolean(false);
+        dropCanisters = config.get("Difficulty Changes", "Drop heart canisters on death", true).getBoolean(true);
+        daggerThrowMultiplier = config.get("Difficulty Changes", "Thrown dagger output multiplier", 3).getDouble(3);
 
         naturalSlimeSpawn = config.get("Mobs", "Blue Slime spawn chance", 1, "Set to 0 to disable").getInt(1);
 
@@ -100,7 +86,7 @@ public class PHConstruct
         }
         catch (Exception ignored) {}
 
-        generateCopper = config.get("Worldgen Disabler", "Generate Copper", ic2).getBoolean(ic2);
+        generateCopper = config.get("Worldgen Disabler", "Generate Copper", false).getBoolean(false);
         generateTin = config.get("Worldgen Disabler", "Generate Tin", ic2).getBoolean(ic2);
         generateAluminum = config.get("Worldgen Disabler", "Generate Aluminum", xycraft).getBoolean(xycraft);
         if(config.hasKey("worldgen disabler", "Generate Cobalt and Ardite")) {
@@ -182,8 +168,8 @@ public class PHConstruct
         tconComesFirst = config.get("general", "Always cast TConstruct ingots", true, "You will always get a TConstruct item from casting an ingot or block.").getBoolean();
 
         enableHealthRegen = config.get("Ultra Hardcore Changes", "Passive Health Regen", true).getBoolean(true);
-        goldAppleRecipe = config.get("Ultra Hardcore Changes", "Change Crafting Recipes", false, "Makes recipes for gold apples, carrots, and melon potions more expensive").getBoolean(false);
-        dropPlayerHeads = config.get("Ultra Hardcore Changes", "Players drop heads on death", false).getBoolean(false);
+        goldAppleRecipe = config.get("Ultra Hardcore Changes", "Change Crafting Recipes", true, "Makes recipes for gold apples, carrots, and melon potions more expensive").getBoolean(true);
+        dropPlayerHeads = config.get("Ultra Hardcore Changes", "Players drop heads on death", true).getBoolean(true);
         uhcGhastDrops = config.get("Ultra Hardcore Changes", "Change Ghast drops to Gold Ingots", false).getBoolean(false);
         worldBorder = config.get("Ultra Hardcore Changes", "Add World Border", false).getBoolean(false);
         worldBorderSize = config.get("Ultra Hardcore Changes", "World Border Radius", 1000).getInt(1000);
@@ -191,7 +177,7 @@ public class PHConstruct
         AbilityHelper.necroticUHS = config.get("Ultra Hardcore Changes", "Necrotic modifier only heals on hostile mob kills", false).getBoolean(false);
 
         // Slime pools
-        islandRarity = config.get("Worldgen", "Slime Island Rarity", 1450).getInt(1450);
+        islandRarity = config.get("Worldgen", "Slime Island Rarity", 3000).getInt(3000);
 
         // Looks
         Property conTexMode = config.get("Looks", "Connected Textures Enabled", true);
@@ -353,6 +339,9 @@ public class PHConstruct
     public static boolean miningLevelIncrease;
     public static boolean denyMattock;
     public static boolean alternativeBoltRecipe;
+    public static boolean indestructible;
+    public static boolean dropCanisters;
+    public static double daggerThrowMultiplier;
 
     // Smeltery Output Modification
     public static double ingotsPerOre;

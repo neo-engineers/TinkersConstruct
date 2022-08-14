@@ -1,5 +1,6 @@
 package tconstruct.plugins.nei;
 
+import tconstruct.TConstruct;
 import tconstruct.tools.gui.CraftingStationGui;
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
@@ -32,7 +33,7 @@ public class NEITConstructConfig implements IConfigureNEI
     @Override
     public String getVersion ()
     {
-        return "${version}";
+        return TConstruct.modVersion;
     }
 
     private static void registerHandler (RecipeHandlerBase handler)
